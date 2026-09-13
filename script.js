@@ -97,7 +97,7 @@ const portfolioData = {
         id: 1,
         title: "DonutDoc — OCR-Free Structured Document Generator",
         description: "Final Year Project sponsored by NASTP — an OCR-free document processing system that uses the Donut Transformer to extract structured information from leave-application forms with approximately 95% field-level extraction accuracy.",
-        image: "DonutDoc.png",
+        image: "DonutDoc.jpeg",
         category: "deeplearning",
         tech: [
             "Donut Transformer",

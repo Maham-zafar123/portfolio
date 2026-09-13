@@ -167,7 +167,7 @@ tech: [
             id: 6,
             title: "DocuMind AI",
             description: "DocuMind AI is an intelligent document analysis platform powered by Google Gemini and Retrieval-Augmented Generation (RAG).",
-            image: "DocuMind AI.PNG",
+            image: "DocuMind AI.png",
             category: "generativeai",
             tech: ["LLM", "Python", "Google Gemini", "RAG","Semantic Search",'Prompt Engineering', 'Documents Intelligence'],
             github: "https://github.com/Maham-zafar123/DocuMind-AI",

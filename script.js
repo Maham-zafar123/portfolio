@@ -93,8 +93,28 @@ const portfolioData = {
 ,
     
     projects: [
+          {
+        id: 1,
+        title: "DonutDoc — OCR-Free Structured Document Generator",
+        description: "Final Year Project sponsored by NASTP — an OCR-free document processing system that uses the Donut Transformer to extract structured information from leave-application forms with approximately 95% field-level extraction accuracy.",
+        image: "DonutDoc.png",
+        category: "deeplearning",
+        tech: [
+            "Donut Transformer",
+            "Python",
+            "FastAPI",
+            "React",
+            "Vite",
+            "Tailwind CSS",
+            "Node.js",
+            "Express",
+            "MongoDB",
+            "Google Colab"
+        ],
+        github: "https://github.com/Maham-zafar123/DonutDoc-OCR-Free-Document-Generator"
+    },
         {
-            id: 1,
+            id: 2,
             title: "AI Research Paper Summarization Agent ",
             description: "Built an AI Research Paper Summarization Agent using LangGraph and Groq LLMs to generate structured paper insights.",
             image: "AI Research paper .PNG",
@@ -103,7 +123,7 @@ const portfolioData = {
             github: "https://github.com/Maham-zafar123/AI-Research-Assistant",
         },
         {
-            id: 2,
+            id: 3,
             title: "AI research paper generator",
             description: "A multi-agent research paper generator using LangGraph, Groq, and Tavily that automatically researches, writes, evaluates, and refines full papers from a given topic.",
             image: "AI Research Assistant.PNG",
@@ -114,7 +134,7 @@ const portfolioData = {
              
         },
         {
-            id: 3,
+            id: 4,
             title: "AI Interview Coach",
             description: "AI-Powered Mock Interview Preparation Platform using Google Gemini, Streamlit, Resume Parsing, SQLite & Intelligent Feedback Analysis",
             image: "AI Interview Coach.png",
@@ -129,7 +149,7 @@ tech: [
 ],            github: "https://github.com/Maham-zafar123/AI-Interview-Coach",
         },
         {
-            id: 4,
+            id: 5,
             title: "CodePilot AI",
             description: "CodePilot AI is an intelligent AI Software Engineering Assistant designed to understand, analyze, and improve complete software projects.",
             image: "CodePilot AI.png",
@@ -144,7 +164,7 @@ tech: [
 ],            github: "https://github.com/Maham-zafar123/CodePilot-AI",
         },
         {
-            id: 5,
+            id: 6,
             title: "DocuMind AI",
             description: "DocuMind AI is an intelligent document analysis platform powered by Google Gemini and Retrieval-Augmented Generation (RAG).",
             image: "DocuMind AI.PNG",
@@ -153,7 +173,7 @@ tech: [
             github: "https://github.com/Maham-zafar123/DocuMind-AI",
         },
         {
-            id: 6,
+            id: 7,
             title: "Facial-Expression-Recognition-using-Deep-Learning",
             description: "A deep learning-based facial expression recognition system that classifies seven emotions (Angry, Disgust, Fear, Happy, Sad, Surprise, Neutral) from facial images using CNNs.",
             image: "emotion detection.jpg",

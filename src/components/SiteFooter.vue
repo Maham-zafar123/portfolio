@@ -113,11 +113,8 @@ const socials = [
       </p>
 
       <!-- Bottom bar -->
-      <div class="flex flex-col items-center justify-between gap-3 border-t border-line py-6 font-mono text-[11px] text-subtle sm:flex-row">
+      <div class="border-t border-line py-6 text-center font-mono text-[11px] text-subtle">
         <p>© {{ year }} {{ profile.name }}. All rights reserved.</p>
-        <p class="flex items-center gap-1.5">
-          Built with <i class="fa-brands fa-vuejs text-emerald-500" /> Vue 3 &amp; <i class="fa-solid fa-wind text-sky-500" /> Tailwind CSS
-        </p>
       </div>
     </div>
   </footer>

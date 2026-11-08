@@ -4,5 +4,6 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
-  base: '/',
+  // Relative paths so the build works at the custom domain root and under /portfolio/ on github.io
+  base: './',
 })

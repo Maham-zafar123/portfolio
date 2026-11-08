@@ -17,8 +17,8 @@ export const profile = {
   email: 'mahamzafar231@gmail.com',
   linkedin: 'https://www.linkedin.com/in/maham-zafar-84695726b/',
   github: 'https://github.com/Maham-zafar123',
-  resume: '/Maham_Zafar_CV.pdf',
-  photo: '/images/profile.png',
+  resume: 'Maham_Zafar_CV.pdf',
+  photo: 'images/profile.png',
 }
 
 export const stats = [
@@ -143,7 +143,7 @@ export const projects = [
     badge: 'Final Year Project · Sponsored by NASTP',
     featured: true,
     category: 'dl',
-    image: '/images/projects/donutdoc.jpeg',
+    image: 'images/projects/donutdoc.jpeg',
     description:
       'Full-stack, OCR-free document processing system that uses the Donut Vision-Language Model to extract structured data from scanned and handwritten NASTP leave-application forms with 95% accuracy.',
     points: [
@@ -158,7 +158,7 @@ export const projects = [
     title: 'DocuMind AI',
     subtitle: 'Multi-Document RAG Platform',
     category: 'genai',
-    image: '/images/projects/documind-ai.png',
+    image: 'images/projects/documind-ai.png',
     description:
       'Multi-document RAG system that processes PDF, DOCX, PPTX and TXT files and answers context-aware questions grounded in the uploaded documents.',
     points: [
@@ -172,7 +172,7 @@ export const projects = [
     title: 'AI Interview Coach',
     subtitle: 'Mock Interview Platform',
     category: 'genai',
-    image: '/images/projects/ai-interview-coach.png',
+    image: 'images/projects/ai-interview-coach.png',
     description:
       'AI-powered interview preparation platform that uses Google Gemini to run interactive HR, technical and behavioural interviews and evaluate responses.',
     points: [
@@ -186,7 +186,7 @@ export const projects = [
     title: 'CodePilot AI',
     subtitle: 'AI Software Engineering Assistant',
     category: 'genai',
-    image: '/images/projects/codepilot-ai.png',
+    image: 'images/projects/codepilot-ai.png',
     description:
       'Intelligent assistant that understands, analyses and improves complete software projects using retrieval over the codebase and agentic reasoning.',
     points: ['Codebase indexing with ChromaDB and RAG.', 'LangGraph workflows for analysis and improvement suggestions.'],
@@ -197,7 +197,7 @@ export const projects = [
     title: 'AI Research Paper Generator',
     subtitle: 'Multi-Agent Research System',
     category: 'agentic',
-    image: '/images/projects/research-generator.png',
+    image: 'images/projects/research-generator.png',
     description:
       'Multi-agent system that researches, writes, evaluates and refines full research papers from a single topic.',
     points: ['Agents for research, drafting, critique and refinement orchestrated with LangGraph.', 'Live web research through Tavily and fast inference with Groq.'],
@@ -208,7 +208,7 @@ export const projects = [
     title: 'Research Paper Summarizer',
     subtitle: 'Summarisation Agent',
     category: 'agentic',
-    image: '/images/projects/research-summarizer.png',
+    image: 'images/projects/research-summarizer.png',
     description: 'AI agent built with LangGraph and Groq LLMs that turns research papers into structured, readable insights.',
     points: ['Structured extraction of contributions, methods and results.', 'Prompt-engineered agent graph for consistent output.'],
     tech: ['LangGraph', 'Groq', 'Prompt Engineering', 'Python', 'Streamlit'],
@@ -218,7 +218,7 @@ export const projects = [
     title: 'Facial Expression Recognition',
     subtitle: 'Deep Learning · Computer Vision',
     category: 'dl',
-    image: '/images/projects/facial-expression.jpg',
+    image: 'images/projects/facial-expression.jpg',
     description:
       'CNN-based system that classifies seven emotions (angry, disgust, fear, happy, sad, surprise, neutral) from facial images, with real-time prediction.',
     points: ['Image preprocessing, training, validation and evaluation in TensorFlow and Keras.', 'OpenCV integration for real-time facial expression prediction.'],

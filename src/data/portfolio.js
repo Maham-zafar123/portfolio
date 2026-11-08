@@ -153,6 +153,17 @@ export const projects = [
     ],
     tech: ['Python', 'Donut', 'Hugging Face', 'FastAPI', 'Node.js', 'Express', 'React', 'MongoDB', 'CUDA'],
     github: 'https://github.com/Maham-zafar123/DonutDoc-OCR-Free-Document-Generator',
+    metrics: [
+      { value: '95%', label: 'field accuracy' },
+      { value: '0', label: 'OCR engines' },
+      { value: '4', label: 'file formats' },
+    ],
+    pipeline: [
+      { label: 'Upload', icon: 'fa-solid fa-cloud-arrow-up' },
+      { label: 'Donut VLM', icon: 'fa-solid fa-brain' },
+      { label: 'JSON', icon: 'fa-solid fa-code' },
+      { label: 'Archive', icon: 'fa-solid fa-box-archive' },
+    ],
   },
   {
     title: 'DocuMind AI',

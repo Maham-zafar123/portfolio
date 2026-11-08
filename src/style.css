@@ -105,6 +105,11 @@
 @keyframes spin-angle {
   to { --angle: 360deg; }
 }
+/* Pulse travelling along the project pipeline connectors */
+@keyframes flow {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(200%); }
+}
 
 @layer base {
   html {

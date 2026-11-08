@@ -1,0 +1,321 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Design tokens (swap per theme) ---------- */
+/* Violet primary, pink + cyan for gradients */
+:root {
+  --bg: #f8f7fc;
+  --surface: #ffffff;
+  --surface-2: #f2f0fa;
+  --line: #e5e1f2;
+  --fg: #120f24;
+  --muted: #514c6e;
+  --subtle: #8f89ad;
+  --accent: #7c3aed; /* fills, glows */
+  --accent-ink: #6d28d9; /* accent used as text */
+  --accent-2: #0891b2;
+  --accent-3: #db2777;
+  --on-accent: #ffffff;
+  color-scheme: light;
+}
+/* Midnight-violet surfaces */
+.dark {
+  --bg: #07061a;
+  --surface: #0e0c26;
+  --surface-2: #161334;
+  --line: #262247;
+  --fg: #f1efff;
+  --muted: #aaa5cf;
+  --subtle: #716b99;
+  --accent: #8b5cf6;
+  --accent-ink: #c4b5fd;
+  --accent-2: #22d3ee;
+  --accent-3: #f472b6;
+  --on-accent: #ffffff;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-on-accent: var(--on-accent);
+}
+
+@theme {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --animate-blink: blink 1.05s step-end infinite;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glow: glow 8s ease-in-out infinite;
+  --animate-gradient: gradient-pan 6s ease infinite;
+  --animate-rise: rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-aurora: aurora 20s ease-in-out infinite;
+  --animate-orbit: spin 60s linear infinite;
+  --animate-orbit-reverse: spin 60s linear infinite reverse;
+  --animate-orbit-fast: spin 40s linear infinite reverse;
+  --animate-orbit-fast-reverse: spin 40s linear infinite;
+  --animate-ping-slow: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes glow {
+    0%, 100% { opacity: 0.7; transform: translate(-50%, 0) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, 2rem) scale(1.08); }
+  }
+  @keyframes gradient-pan {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+  }
+  @keyframes aurora {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(6%, -8%) scale(1.12); }
+    66% { transform: translate(-6%, 6%) scale(0.92); }
+  }
+}
+
+/* Animatable angle for the rotating border */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle {
+  to { --angle: 360deg; }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  /* Soft ambient colour behind the whole page in dark mode */
+  .dark body {
+    background-image:
+      radial-gradient(60rem 40rem at 85% -10%, rgb(139 92 246 / 0.14), transparent 60%),
+      radial-gradient(50rem 36rem at -10% 40%, rgb(34 211 238 / 0.07), transparent 60%),
+      radial-gradient(50rem 40rem at 100% 85%, rgb(244 114 182 / 0.08), transparent 60%);
+    background-attachment: fixed;
+  }
+  /* Film grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  ::selection {
+    @apply bg-accent text-on-accent;
+  }
+  :focus-visible {
+    @apply rounded-md outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+/* ---------- Utilities ---------- */
+@utility container-x {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility panel {
+  @apply rounded-2xl border border-line bg-surface;
+}
+
+@utility panel-hover {
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  &:hover {
+    border-color: color-mix(in oklab, var(--accent) 55%, var(--line));
+    box-shadow: 0 24px 60px -28px color-mix(in oklab, var(--accent) 45%, transparent);
+  }
+}
+
+@utility text-gradient {
+  @apply animate-gradient bg-linear-to-r from-accent-ink via-accent-3 to-accent-2 bg-size-[200%_auto] bg-clip-text text-transparent;
+}
+
+@utility bg-brand-gradient {
+  background-image: linear-gradient(135deg, var(--accent) 0%, var(--accent-3) 55%, var(--accent-2) 120%);
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300 active:scale-[0.97];
+}
+@utility btn-accent {
+  @apply btn bg-brand-gradient bg-size-[150%_100%] bg-left text-on-accent hover:-translate-y-0.5 hover:bg-right;
+  transition-property: transform, background-position, box-shadow;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.25),
+    0 10px 30px -10px color-mix(in oklab, var(--accent) 80%, transparent);
+  &:hover {
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.25),
+      0 14px 40px -10px color-mix(in oklab, var(--accent-3) 70%, transparent);
+  }
+}
+@utility btn-outline {
+  @apply btn border border-line bg-surface/60 text-fg backdrop-blur hover:-translate-y-0.5 hover:border-fg/30;
+}
+
+@utility tag {
+  @apply inline-flex items-center gap-1.5 rounded-md border border-line bg-surface-2/70 px-2 py-1 font-mono text-[11px] leading-none text-muted;
+}
+
+@utility kbd {
+  @apply inline-grid min-w-5 place-items-center rounded border border-line bg-surface-2 px-1 py-0.5 font-mono text-[10px] leading-none text-muted;
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(color-mix(in oklab, var(--fg) 14%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@utility field {
+  @apply w-full rounded-xl border border-line bg-surface-2/50 px-4 py-3 text-fg transition outline-none placeholder:text-subtle focus:border-accent focus:bg-surface;
+  &:focus {
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
+  }
+}
+
+/* Rotating gradient border, drawn as a 1px masked ring */
+@utility glow-border {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: 2;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(from var(--angle), transparent 0 65%, var(--accent) 78%, var(--accent-3) 88%, var(--accent-2) 95%, transparent);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: spin-angle 6s linear infinite;
+  }
+}
+
+/* Cursor-following glow, driven by --mx/--my set from JS */
+@utility spotlight {
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, var(--accent) 10%, transparent), transparent 45%);
+  }
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ---------- Scroll reveal (directives/reveal.js) ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  filter: blur(6px);
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal='left'] { transform: translateX(-32px); }
+[data-reveal='right'] { transform: translateX(32px); }
+[data-reveal='zoom'] { transform: scale(0.94); }
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* ---------- Vue transitions ---------- */
+.fade-enter-active,
+.fade-leave-active { transition: opacity 0.25s ease; }
+.fade-enter-from,
+.fade-leave-to { opacity: 0; }
+
+.swap-enter-active,
+.swap-leave-active { transition: opacity 0.25s ease, transform 0.25s ease; }
+.swap-enter-from { opacity: 0; transform: translateY(8px); }
+.swap-leave-to { opacity: 0; transform: translateY(-8px); }
+
+.slide-down-enter-active,
+.slide-down-leave-active { transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.slide-down-enter-from,
+.slide-down-leave-to { opacity: 0; transform: translateY(-10px); }
+
+.pop-enter-active,
+.pop-leave-active { transition: opacity 0.25s ease; }
+.pop-enter-active .pop-panel,
+.pop-leave-active .pop-panel { transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease; }
+.pop-enter-from,
+.pop-leave-to { opacity: 0; }
+.pop-enter-from .pop-panel,
+.pop-leave-to .pop-panel { opacity: 0; transform: translateY(16px) scale(0.97); }
+
+.word-enter-active,
+.word-leave-active { transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease; }
+.word-enter-from { opacity: 0; transform: translateY(55%); filter: blur(6px); }
+.word-leave-to { opacity: 0; transform: translateY(-55%); filter: blur(6px); }
+
+.list-move,
+.list-enter-active,
+.list-leave-active { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.list-enter-from,
+.list-leave-to { opacity: 0; transform: scale(0.94) translateY(16px); }
+.list-leave-active { position: absolute; }
+
+/* Circular reveal when switching theme (View Transitions API) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  [data-reveal] { opacity: 1; transform: none; filter: none; }
+}

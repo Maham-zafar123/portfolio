@@ -83,10 +83,10 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
     <Transition name="pop">
       <div
         v-if="paletteOpen"
-        class="fixed inset-0 z-[80] flex items-start justify-center bg-bg/60 px-4 pt-[14vh] backdrop-blur-sm"
+        class="fixed inset-0 z-[120] flex items-start justify-center bg-black/40 px-4 pt-[14vh] backdrop-blur-md"
         @click.self="paletteOpen = false"
       >
-        <div class="pop-panel panel w-full max-w-lg overflow-hidden shadow-2xl shadow-black/30" role="dialog" aria-modal="true" aria-label="Command palette">
+        <div class="pop-panel glass-strong w-full max-w-lg overflow-hidden rounded-3xl" role="dialog" aria-modal="true" aria-label="Command palette">
           <div class="flex items-center gap-3 border-b border-line px-4">
             <i class="fa-solid fa-magnifying-glass text-sm text-subtle" />
             <input
@@ -107,26 +107,26 @@ onBeforeUnmount(() => window.removeEventListener('keydown', onKey))
               <li>
                 <button
                   type="button"
-                  class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors"
-                  :class="i === index ? 'bg-accent/12 text-fg' : 'text-muted'"
+                  class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition-colors"
+                  :class="i === index ? 'bg-accent text-on-accent' : 'text-muted'"
                   @mouseenter="index = i"
                   @click="run(item)"
                 >
                   <span
                     class="grid size-7 place-items-center rounded-md border text-xs transition-colors"
-                    :class="i === index ? 'border-accent/40 text-accent-ink' : 'border-line'"
+                    :class="i === index ? 'border-on-accent/30' : 'border-line'"
                   >
                     <i :class="item.icon" />
                   </span>
                   {{ item.label }}
-                  <i v-if="i === index" class="fa-solid fa-arrow-turn-down ml-auto rotate-90 text-[10px] text-subtle" />
+                  <i v-if="i === index" class="fa-solid fa-arrow-turn-down ml-auto rotate-90 text-[10px]" />
                 </button>
               </li>
             </template>
             <li v-if="!results.length" class="px-3 py-10 text-center text-sm text-subtle">No results for “{{ query }}”</li>
           </ul>
 
-          <div class="flex items-center gap-4 border-t border-line bg-surface-2/60 px-4 py-2.5 font-mono text-[10px] text-subtle">
+          <div class="flex items-center gap-4 border-t border-line px-4 py-2.5 font-mono text-[10px] text-subtle">
             <span class="flex items-center gap-1"><kbd class="kbd">↑</kbd><kbd class="kbd">↓</kbd> navigate</span>
             <span class="flex items-center gap-1"><kbd class="kbd">↵</kbd> select</span>
             <span class="ml-auto flex items-center gap-1"><kbd class="kbd">{{ modKey }}</kbd><kbd class="kbd">K</kbd> toggle</span>

@@ -3,7 +3,7 @@
 export const profile = {
   name: 'Maham Zafar',
   firstName: 'Maham',
-  title: 'Software Engineer / AI Engineer',
+  title: 'AI Engineer & Full-Stack Developer',
   roles: ['AI Engineer', 'Software Engineer', 'LLM & RAG Architect', 'Agentic AI Developer', 'Full-Stack Developer'],
   headline:
     'I build production-ready Agentic RAG systems, fine-tune transformer models, and ship complete web applications with Vue.js, Django and FastAPI.',
@@ -23,9 +23,53 @@ export const profile = {
 
 export const stats = [
   { value: 4, suffix: '', label: 'Internships' },
-  { value: 7, suffix: '+', label: 'AI Projects' },
+  { value: 8, suffix: '+', label: 'Projects Built' },
   { value: 95, suffix: '%', label: 'IDP Accuracy' },
   { value: 3.68, suffix: '', label: 'CGPA / 4.0', decimals: 2 },
+]
+
+// Two disciplines, shown side by side so both AI and web recruiters find their fit fast.
+export const tracks = [
+  {
+    id: 'ai',
+    eyebrow: 'Track 01',
+    title: 'AI Engineering',
+    tagline: 'LLMs, RAG and agents that solve real problems, not demos.',
+    icon: 'fa-solid fa-brain',
+    points: [
+      'Agentic RAG pipelines with LangChain, LangGraph, R2R and vector search',
+      'Fine-tuning & evaluating transformers and Vision-Language models',
+      'Document AI: 95% field accuracy on handwritten forms without OCR',
+      'Inference services and AI APIs with FastAPI',
+    ],
+    stack: ['Python', 'PyTorch', 'Hugging Face', 'LangChain', 'LangGraph', 'Google Gemini', 'ChromaDB', 'FastAPI'],
+    proof: [
+      { label: 'DonutDoc · VLM fine-tune', href: '#projects' },
+      { label: 'DocuMind AI · multi-doc RAG', href: '#projects' },
+      { label: 'Multi-agent research system', href: '#projects' },
+    ],
+    roles: ['AI Engineer', 'ML Engineer', 'LLM / GenAI Engineer'],
+  },
+  {
+    id: 'web',
+    eyebrow: 'Track 02',
+    title: 'Full-Stack Web',
+    tagline: 'Clean, responsive products from database to pixel.',
+    icon: 'fa-solid fa-code',
+    points: [
+      'Component-driven Vue.js and React frontends with Tailwind CSS',
+      'REST APIs and backends in Django, FastAPI, Node.js and Express',
+      'Relational and document data: SQL, MySQL, SQLite, MongoDB',
+      'Auth, file uploads, history and dashboards, shipped with Git & Agile',
+    ],
+    stack: ['Vue.js', 'React', 'JavaScript', 'Tailwind CSS', 'Django', 'Node.js', 'Express', 'MongoDB'],
+    proof: [
+      { label: 'Rasant Solutions · Vue + Django', href: '#experience' },
+      { label: 'DonutDoc · React + Node + FastAPI', href: '#projects' },
+      { label: 'This site · Vue 3 + Vite + Tailwind', href: '#top' },
+    ],
+    roles: ['Full-Stack Developer', 'Frontend (Vue / React)', 'Backend (Django / Node)'],
+  },
 ]
 
 export const focusAreas = [
@@ -260,6 +304,7 @@ export const certifications = [
 ]
 
 export const navLinks = [
+  { id: 'expertise', label: 'Expertise' },
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },

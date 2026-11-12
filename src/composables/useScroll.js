@@ -20,14 +20,20 @@ export function useScroll(sectionIds = []) {
     activeId.value = current
   }
 
+  let frame = 0
+  const schedule = () => {
+    if (!frame) frame = requestAnimationFrame(() => ((frame = 0), update()))
+  }
+
   onMounted(() => {
     update()
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update, { passive: true })
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule, { passive: true })
   })
   onBeforeUnmount(() => {
-    window.removeEventListener('scroll', update)
-    window.removeEventListener('resize', update)
+    cancelAnimationFrame(frame)
+    window.removeEventListener('scroll', schedule)
+    window.removeEventListener('resize', schedule)
   })
 
   return { scrollY, progress, activeId }

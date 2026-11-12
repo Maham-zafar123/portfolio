@@ -29,7 +29,7 @@ const pos = (i, n) => {
 
 // Scene follows the mouse (lerped) and sways gently when idle
 const rig = ref(null)
-let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0, interactive = false
+let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0, interactive = false, onScreen = true, io
 const onMove = (e) => {
   tx = (e.clientX / window.innerWidth - 0.5) * 2
   ty = (e.clientY / window.innerHeight - 0.5) * 2
@@ -40,15 +40,20 @@ const loop = (t) => {
   const swayY = Math.sin(t / 2600) * 4
   const swayX = Math.cos(t / 3200) * 2
   if (rig.value) rig.value.style.transform = `rotateX(${-cy * 9 + swayX}deg) rotateY(${cx * 14 + swayY}deg)`
-  raf = requestAnimationFrame(loop)
+  raf = onScreen ? requestAnimationFrame(loop) : 0
 }
 onMounted(() => {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   interactive = window.matchMedia('(hover: hover)').matches
   if (interactive) window.addEventListener('mousemove', onMove, { passive: true })
-  raf = requestAnimationFrame(loop)
+  io = new IntersectionObserver(([e]) => {
+    onScreen = e.isIntersecting
+    if (onScreen && !raf) raf = requestAnimationFrame(loop)
+  })
+  io.observe(rig.value)
 })
 onBeforeUnmount(() => {
+  io?.disconnect()
   cancelAnimationFrame(raf)
   window.removeEventListener('mousemove', onMove)
 })
@@ -170,7 +175,7 @@ const ribbon = skillGroups.flatMap((g) => g.skills)
           <div class="absolute inset-x-[25%] inset-y-[13%] overflow-hidden rounded-[2.25rem] border border-white/25 bg-surface-2 shadow-[0_40px_80px_-30px_rgb(0_0_0/0.6)]" data-cursor="hi!">
             <img :src="profile.photo" :alt="profile.name" fetchpriority="high" class="size-full object-cover object-[50%_20%]" />
             <div class="absolute inset-0 bg-linear-to-t from-black/55 via-transparent to-white/10" />
-            <div class="absolute inset-x-3 bottom-3 rounded-2xl border border-white/20 bg-white/10 px-3 py-2.5 text-white backdrop-blur-md">
+            <div class="absolute inset-x-3 bottom-3 rounded-2xl border border-white/20 bg-black/40 px-3 py-2.5 text-white">
               <p class="font-display text-sm font-semibold">{{ profile.name }}</p>
               <p class="font-mono text-[9px] text-white/75">UET Taxila · SE '26</p>
             </div>
@@ -193,13 +198,13 @@ const ribbon = skillGroups.flatMap((g) => g.skills)
 
           <!-- Floating glass cards, pushed toward the viewer -->
           <div class="absolute top-[20%] -left-[2%] animate-float" style="--z: 160px; animation-delay: -2s">
-            <div class="glass-strong rounded-2xl px-4 py-3">
+            <div class="glass-solid rounded-2xl px-4 py-3">
               <p class="font-display text-2xl font-bold text-accent-ink">95%</p>
               <p class="font-mono text-[10px] text-subtle">IDP accuracy</p>
             </div>
           </div>
           <div class="absolute top-[8%] right-[2%] animate-float" style="--z: 120px">
-            <div class="glass-strong flex items-center gap-2.5 rounded-2xl px-4 py-3">
+            <div class="glass-solid flex items-center gap-2.5 rounded-2xl px-4 py-3">
               <span class="grid size-8 place-items-center rounded-lg bg-accent text-sm text-on-accent"><i class="fa-solid fa-robot" /></span>
               <div>
                 <p class="text-sm font-semibold text-fg">Agentic AI</p>
@@ -208,7 +213,7 @@ const ribbon = skillGroups.flatMap((g) => g.skills)
             </div>
           </div>
           <div class="absolute right-[0%] bottom-[16%] animate-float" style="--z: 190px; animation-delay: -4s">
-            <div class="glass-strong flex items-center gap-2 rounded-full px-4 py-2.5">
+            <div class="glass-solid flex items-center gap-2 rounded-full px-4 py-2.5">
               <i class="fa-solid fa-code text-accent-3" />
               <p class="font-mono text-[11px] text-fg">Full-Stack · Vue · Django · Node</p>
             </div>

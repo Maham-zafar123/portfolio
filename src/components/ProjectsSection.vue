@@ -50,7 +50,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', placePill))
           @click="selected = featured"
         >
           <div class="relative min-h-80 overflow-hidden p-5 sm:p-8 preserve-3d">
-            <div class="pointer-events-none absolute -top-32 -left-32 size-96 rounded-full bg-accent/25 blur-3xl" />
+            <div class="pointer-events-none absolute -top-32 -left-32 size-96 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--accent)_50%,transparent),transparent)]" />
             <div class="relative overflow-hidden rounded-2xl border border-line shadow-2xl shadow-black/40 [transform:translateZ(30px)]">
               <img
                 :src="featured.image"
@@ -61,7 +61,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', placePill))
             </div>
             <!-- Floating metric chips pushed forward in Z -->
             <div class="relative -mt-10 flex flex-wrap justify-center gap-2 px-2 sm:justify-start sm:px-6 [transform:translateZ(70px)]">
-              <div v-for="m in featured.metrics" :key="m.label" class="glass-strong rounded-2xl px-4 py-2.5 text-center">
+              <div v-for="m in featured.metrics" :key="m.label" class="glass-solid rounded-2xl px-4 py-2.5 text-center">
                 <p class="font-display text-2xl font-bold tracking-tight text-accent-ink">{{ m.value }}</p>
                 <p class="font-mono text-[10px] text-subtle uppercase">{{ m.label }}</p>
               </div>
@@ -134,7 +134,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', placePill))
                 class="size-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110 group-hover:rotate-1"
               />
               <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
-              <span class="absolute top-3 left-3 rounded-full border border-white/20 bg-black/30 px-2.5 py-1 font-mono text-[10px] text-white backdrop-blur-md">
+              <span class="absolute top-3 left-3 rounded-full border border-white/20 bg-black/55 px-2.5 py-1 font-mono text-[10px] text-white">
                 {{ labelFor(project.category) }}
               </span>
               <a
@@ -142,7 +142,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', placePill))
                 target="_blank"
                 rel="noopener"
                 :aria-label="`${project.title} on GitHub`"
-                class="absolute top-3 right-3 grid size-9 place-items-center rounded-full border border-white/20 bg-black/30 text-white backdrop-blur-md transition hover:bg-white hover:text-black"
+                class="absolute top-3 right-3 grid size-9 place-items-center rounded-full border border-white/20 bg-black/55 text-white transition hover:bg-white hover:text-black"
                 @click.stop
               >
                 <i class="fa-brands fa-github" />
@@ -152,7 +152,7 @@ onBeforeUnmount(() => window.removeEventListener('resize', placePill))
                   v-for="t in project.tech.slice(0, 4)"
                   :key="t"
                   :title="t"
-                  class="grid size-8 place-items-center rounded-full border border-white/25 bg-white/85 backdrop-blur"
+                  class="grid size-8 place-items-center rounded-full border border-white/25 bg-white/90"
                 >
                   <TechIcon :name="t" size="size-4" />
                 </span>

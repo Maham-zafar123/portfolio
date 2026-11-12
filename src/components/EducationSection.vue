@@ -38,7 +38,7 @@ const quick = [
         <!-- Degree card: CGPA ring, FYP, year track and quick stats -->
         <article v-reveal:left class="[perspective:1400px] lg:col-span-5 lg:row-span-2">
           <div v-tilt="6" class="glass glare relative flex h-full flex-col overflow-hidden rounded-[2rem] p-6 sm:p-8">
-            <div class="pointer-events-none absolute -top-24 -right-24 size-64 rounded-full bg-accent/20 blur-3xl" />
+            <div class="pointer-events-none absolute -top-24 -right-24 size-64 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--accent)_40%,transparent),transparent)]" />
 
             <!-- Header -->
             <div class="relative flex items-center justify-between gap-3">

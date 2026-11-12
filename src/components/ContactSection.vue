@@ -68,8 +68,8 @@ const copyEmail = async () => {
         <div class="relative overflow-hidden border-b border-line p-7 sm:p-10 lg:border-r lg:border-b-0">
           <!-- Mesh + 3D orbit decoration -->
           <div class="pointer-events-none absolute inset-0 -z-0">
-            <div class="absolute -top-24 -left-24 size-80 rounded-full bg-accent/25 blur-3xl" />
-            <div class="absolute -right-20 -bottom-24 size-80 rounded-full bg-accent-3/25 blur-3xl" />
+            <div class="absolute -top-24 -left-24 size-80 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--accent)_50%,transparent),transparent)]" />
+            <div class="absolute -right-20 -bottom-24 size-80 rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--accent-3)_50%,transparent),transparent)]" />
             <div class="absolute -right-10 -bottom-10 size-64 [perspective:600px] opacity-70" aria-hidden="true">
               <div class="absolute inset-0 preserve-3d [transform:rotateX(70deg)]">
                 <div class="absolute inset-0 animate-[ring-spin_14s_linear_infinite] rounded-full border border-accent/40" />

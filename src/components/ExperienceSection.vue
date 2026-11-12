@@ -12,23 +12,32 @@ let raf = 0
 
 const update = () => {
   raf = 0
-  depth.value = cards.value.map((el, i) => {
-    const next = cards.value[i + 1]
-    if (!el || !next) return 0
+  const next = cards.value.map((el, i) => {
+    const below = cards.value[i + 1]
+    if (!el || !below) return 0
     const a = el.getBoundingClientRect()
-    const b = next.getBoundingClientRect()
+    const b = below.getBoundingClientRect()
     // 0 when the next card is a full card-height below, 1 when it fully overlaps
-    return Math.min(Math.max(1 - (b.top - a.top) / a.height, 0), 1)
+    return Math.round(Math.min(Math.max(1 - (b.top - a.top) / a.height, 0), 1) * 100) / 100
   })
+  // Only touch reactive state (and re-render) when something actually moved
+  if (next.some((v, i) => v !== depth.value[i])) depth.value = next
 }
-const onScroll = () => (raf ||= requestAnimationFrame(update))
+let near = false, io
+const onScroll = () => {
+  if (near) raf ||= requestAnimationFrame(update)
+}
 
 onMounted(() => {
   update()
+  // Track scroll only while the section is on (or near) the screen
+  io = new IntersectionObserver(([e]) => (near = e.isIntersecting), { rootMargin: '200px 0px' })
+  io.observe(cards.value[0].closest('section'))
   window.addEventListener('scroll', onScroll, { passive: true })
   window.addEventListener('resize', onScroll, { passive: true })
 })
 onBeforeUnmount(() => {
+  io?.disconnect()
   cancelAnimationFrame(raf)
   window.removeEventListener('scroll', onScroll)
   window.removeEventListener('resize', onScroll)
@@ -57,7 +66,7 @@ const hues = ['var(--accent)', 'var(--accent-3)', 'var(--accent-2)', 'var(--acce
           :style="{ top: `calc(6.5rem + ${i * 1.4}rem)` }"
         >
           <article
-            class="glass-strong relative grid origin-top overflow-hidden rounded-[2rem] md:grid-cols-[0.8fr_1.4fr]"
+            class="glass-solid relative grid origin-top overflow-hidden rounded-[2rem] md:grid-cols-[0.8fr_1.4fr]"
             :style="{
               transform: `scale(${1 - depth[i] * 0.06}) rotateX(${depth[i] * 6}deg)`,
             }"
@@ -66,8 +75,8 @@ const hues = ['var(--accent)', 'var(--accent-3)', 'var(--accent-2)', 'var(--acce
             <!-- Left: meta -->
             <div class="relative flex flex-col justify-between gap-8 overflow-hidden border-b border-line p-6 sm:p-8 md:border-r md:border-b-0">
               <div
-                class="pointer-events-none absolute -top-24 -left-24 size-64 rounded-full opacity-30 blur-3xl"
-                :style="{ background: hues[i % hues.length] }"
+                class="pointer-events-none absolute -top-24 -left-24 size-64 rounded-full opacity-50"
+                :style="{ background: `radial-gradient(closest-side, ${hues[i % hues.length]}, transparent)` }"
               />
               <div class="relative">
                 <span class="font-display text-[5.5rem] leading-none font-extrabold tracking-tighter text-outline">0{{ i + 1 }}</span>

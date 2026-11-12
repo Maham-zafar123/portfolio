@@ -22,7 +22,7 @@
   --accent-3: #5b6cff;
   --on-accent: #03201a;
 
-  --glass-bg: rgb(255 255 255 / 0.62);
+  --glass-bg: rgb(255 255 255 / 0.72);
   --glass-strong: rgb(255 255 255 / 0.8);
   --glass-line: rgb(255 255 255 / 0.9);
   --glass-edge: rgb(15 23 42 / 0.06);
@@ -48,7 +48,7 @@
   --accent-3: #8b97ff;
   --on-accent: #04131a;
 
-  --glass-bg: rgb(160 185 255 / 0.05);
+  --glass-bg: rgb(150 175 255 / 0.065);
   --glass-strong: rgb(12 20 38 / 0.72);
   --glass-line: rgb(170 195 255 / 0.12);
   --glass-edge: rgb(255 255 255 / 0.04);
@@ -175,16 +175,6 @@
   h1, h2, h3, h4 {
     font-family: var(--font-display);
   }
-  /* Film grain over everything */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 95;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
   ::selection {
     background: var(--accent);
     color: var(--on-accent);
@@ -223,18 +213,23 @@
 @utility glass {
   background: linear-gradient(160deg, color-mix(in oklab, var(--glass-bg) 100%, transparent), color-mix(in oklab, var(--glass-bg) 40%, transparent));
   border: 1px solid var(--glass-line);
-  backdrop-filter: blur(22px) saturate(170%);
-  -webkit-backdrop-filter: blur(22px) saturate(170%);
   box-shadow:
     inset 0 1px 0 var(--glass-hi),
     inset 0 0 0 1px var(--glass-edge),
     var(--glass-shadow);
 }
+@utility glass-solid {
+  background: linear-gradient(160deg, color-mix(in oklab, var(--surface) 96%, transparent), color-mix(in oklab, var(--surface) 88%, transparent));
+  border: 1px solid var(--glass-line);
+  box-shadow:
+    inset 0 1px 0 var(--glass-hi),
+    var(--glass-shadow);
+}
 @utility glass-strong {
   background: var(--glass-strong);
   border: 1px solid var(--glass-line);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow:
     inset 0 1px 0 var(--glass-hi),
     var(--glass-shadow);
@@ -260,7 +255,6 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  animation: gradient-pan 7s ease infinite;
 }
 @keyframes gradient-pan {
   0%, 100% { background-position: 0% 50%; }
@@ -352,7 +346,10 @@
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    animation: spin-angle 5s linear infinite;
+    animation: spin-angle 5s linear infinite paused;
+  }
+  &:hover::after {
+    animation-play-state: running;
   }
 }
 
@@ -397,14 +394,13 @@
   transition:
     opacity 0.7s ease-out,
     transform 0.9s var(--ease-out-expo),
-    filter 0.7s ease-out,
     clip-path 0.9s var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
 }
-[data-reveal='up'] { transform: perspective(1200px) translate3d(0, 36px, 0) rotateX(-8deg); filter: blur(4px); }
-[data-reveal='left'] { transform: perspective(1200px) translate3d(-36px, 0, 0) rotateY(8deg); filter: blur(4px); }
-[data-reveal='right'] { transform: perspective(1200px) translate3d(36px, 0, 0) rotateY(-8deg); filter: blur(4px); }
-[data-reveal='zoom'] { transform: perspective(1200px) scale(0.92) translateZ(-40px); filter: blur(4px); }
+[data-reveal='up'] { transform: perspective(1200px) translate3d(0, 36px, 0) rotateX(-8deg); }
+[data-reveal='left'] { transform: perspective(1200px) translate3d(-36px, 0, 0) rotateY(8deg); }
+[data-reveal='right'] { transform: perspective(1200px) translate3d(36px, 0, 0) rotateY(-8deg); }
+[data-reveal='zoom'] { transform: perspective(1200px) scale(0.92) translateZ(-40px); }
 [data-reveal='clip'] { opacity: 1; clip-path: inset(0 0 100% 0); }
 [data-reveal].is-visible {
   opacity: 1;
@@ -417,16 +413,13 @@
 .intro {
   opacity: 0;
   transform: perspective(1000px) translate3d(0, 40px, 0) rotateX(-20deg);
-  filter: blur(10px);
 }
 .is-loaded .intro {
   opacity: 1;
   transform: none;
-  filter: none;
   transition:
     opacity 1.1s var(--ease-out-expo),
-    transform 1.3s var(--ease-out-expo),
-    filter 1.1s var(--ease-out-expo);
+    transform 1.3s var(--ease-out-expo);
   transition-delay: var(--d, 0ms);
 }
 /* Per-letter 3D flip for the hero name */
@@ -493,8 +486,8 @@
 
 .word-enter-active,
 .word-leave-active { transition: opacity 0.5s ease, transform 0.6s var(--ease-out-expo), filter 0.5s; }
-.word-enter-from { opacity: 0; transform: perspective(600px) translateY(60%) rotateX(-70deg); filter: blur(4px); }
-.word-leave-to { opacity: 0; transform: perspective(600px) translateY(-60%) rotateX(70deg); filter: blur(4px); }
+.word-enter-from { opacity: 0; transform: perspective(600px) translateY(60%) rotateX(-70deg); }
+.word-leave-to { opacity: 0; transform: perspective(600px) translateY(-60%) rotateX(70deg); }
 
 .list-move,
 .list-enter-active,

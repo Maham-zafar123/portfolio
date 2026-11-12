@@ -10,23 +10,31 @@ const pressed = ref(false)
 
 let mx = -100, my = -100, rx = -100, ry = -100, raf = 0
 
+const wake = () => {
+  if (!raf) raf = requestAnimationFrame(loop)
+}
 const onMove = (e) => {
   mx = e.clientX
   my = e.clientY
+  wake()
   const target = e.target.closest?.('a, button, [data-cursor], input, textarea, label')
   hovering.value = !!target && !target.matches('input, textarea')
   label.value = target?.dataset?.cursor || ''
 }
 const onDown = () => (pressed.value = true)
 const onUp = () => (pressed.value = false)
-const onLeave = () => { mx = my = -100 }
+const onLeave = () => {
+  mx = my = -100
+  wake()
+}
 
 const loop = () => {
   rx += (mx - rx) * 0.16
   ry += (my - ry) * 0.16
   if (dot.value) dot.value.style.transform = `translate3d(${mx}px, ${my}px, 0)`
   if (ring.value) ring.value.style.transform = `translate3d(${rx}px, ${ry}px, 0)`
-  raf = requestAnimationFrame(loop)
+  const settled = Math.abs(mx - rx) < 0.1 && Math.abs(my - ry) < 0.1
+  raf = settled ? 0 : requestAnimationFrame(loop)
 }
 
 onMounted(() => {
@@ -38,7 +46,6 @@ onMounted(() => {
   window.addEventListener('mousedown', onDown)
   window.addEventListener('mouseup', onUp)
   document.addEventListener('mouseleave', onLeave)
-  raf = requestAnimationFrame(loop)
 })
 onBeforeUnmount(() => {
   cancelAnimationFrame(raf)
@@ -59,7 +66,7 @@ onBeforeUnmount(() => {
           label
             ? 'size-24 border-transparent bg-accent'
             : hovering
-              ? 'size-14 border-accent bg-accent/10 backdrop-blur-[2px]'
+              ? 'size-14 border-accent bg-accent/10'
               : 'size-9 border-fg/40',
           pressed ? 'scale-75' : '',
         ]"

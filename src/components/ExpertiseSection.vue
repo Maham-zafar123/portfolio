@@ -38,7 +38,7 @@ layers.forEach((ys, li) => {
       <div class="relative grid gap-5 lg:grid-cols-2">
         <!-- Centre badge joining the two tracks -->
         <div class="pointer-events-none absolute top-1/2 left-1/2 z-20 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
-          <div class="glass-strong grid size-16 place-items-center rounded-full font-display text-2xl font-bold text-fg">+</div>
+          <div class="glass-solid grid size-16 place-items-center rounded-full font-display text-2xl font-bold text-fg">+</div>
         </div>
 
         <article v-for="(t, ti) in tracks" :key="t.id" v-reveal:[dirs[ti]] class="[perspective:1600px]">
@@ -48,9 +48,9 @@ layers.forEach((ys, li) => {
             :class="tone[t.id].border"
           >
             <div
-              class="pointer-events-none absolute -top-28 size-72 rounded-full opacity-25 blur-3xl"
+              class="pointer-events-none absolute -top-28 size-72 rounded-full opacity-40"
               :class="ti ? '-left-20' : '-right-20'"
-              :style="{ background: tone[t.id].glow }"
+              :style="{ background: `radial-gradient(closest-side, ${tone[t.id].glow}, transparent)` }"
             />
 
             <!-- Header -->

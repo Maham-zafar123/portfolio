@@ -58,7 +58,7 @@ const isActive = (id) => (props.activeId || 'top') === id
           <i :class="item.icon" />
         </a>
         <span
-          class="glass-strong pointer-events-none absolute -top-11 left-1/2 hidden -translate-x-1/2 translate-y-1 rounded-lg px-2.5 py-1 font-mono text-[10px] whitespace-nowrap text-fg opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:block"
+          class="glass-solid pointer-events-none absolute -top-11 left-1/2 hidden -translate-x-1/2 translate-y-1 rounded-lg px-2.5 py-1 font-mono text-[10px] whitespace-nowrap text-fg opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:block"
         >
           {{ item.label }}
         </span>

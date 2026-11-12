@@ -42,7 +42,9 @@ const render = () => {
     if (!el) continue
     el.style.transform = `translate3d(${x2 * R}px, ${y1 * R}px, 0) translate(-50%, -50%) scale(${scale})`
     el.style.opacity = (0.25 + 0.75 * ((z2 + 1) / 2)).toFixed(2)
-    el.style.zIndex = Math.round(scale * 100)
+    // Re-stack only when the coarse depth bucket changes (z-index changes force repaints)
+    const z = Math.round(scale * 10)
+    if (el._z !== z) el.style.zIndex = el._z = z
   }
   if (!dragging) {
     ax += (0.0016 - ax) * 0.02
